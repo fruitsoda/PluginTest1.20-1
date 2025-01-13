@@ -47,3 +47,11 @@ processResources {
         expand props
     }
 }
+
+jar {
+    archiveFileName = 'testplugin.jar'
+    destinationDirectory = file("D:\\Minecraft1.20.1Server\\plugins")
+    manifest {
+        attributes 'Main-Class': 'org.zepelown.kotlintest2.KotlinTest2'
+    }
+}
