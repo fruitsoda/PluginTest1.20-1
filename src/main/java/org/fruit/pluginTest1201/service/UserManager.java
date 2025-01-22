@@ -26,4 +26,9 @@ public class UserManager {
     public User getUserData(Player player){
         return onlineUserData.get(player);
     }
+
+    public void addKillCounts(Player player){
+        User user = getUserData(player);
+        user.setKills(user.getKills() + 1L);
+    }
 }

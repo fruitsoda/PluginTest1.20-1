@@ -9,12 +9,14 @@ public class UserManagementController {
     private UserConnectController userConnectController;
     private UserManager userManager;
     private ScoreBoardEventController scoreBoardEventController;
+    private KillCountEventController killCountEventController;
 
     public UserManagementController(){
         this.serverInstance = Main.getServerInstance();
         this.userManager = new UserManager();
         this.userConnectController = new UserConnectController(this.userManager);
         this.scoreBoardEventController = new ScoreBoardEventController(this.userManager);
+        this.killCountEventController = new KillCountEventController(this.userManager);
 
         registerEvent();
     }
@@ -28,5 +30,6 @@ public class UserManagementController {
     public void registerEvent(){
         serverInstance.getServer().getPluginManager().registerEvents(userConnectController, serverInstance);
         serverInstance.getServer().getPluginManager().registerEvents(scoreBoardEventController, serverInstance);
+        serverInstance.getServer().getPluginManager().registerEvents(killCountEventController, serverInstance);
     }
 }
