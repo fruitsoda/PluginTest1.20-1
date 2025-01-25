@@ -1,15 +1,13 @@
 package org.fruit.pluginTest1201.controller;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.*;
 import org.fruit.pluginTest1201.Main;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.fruit.pluginTest1201.entity.User;
@@ -46,6 +44,7 @@ public class KillCountEventController implements Listener {
         serverInstance.getLogger().info("updateScoreBoard 함수 실행");
         User user = userManager.getUserData(player);
         Scoreboard scoreboard = player.getScoreboard();
-        Objective o = scoreboard.getObjective("testBoard");
+        Team team2 = scoreboard.getTeam("team2");
+        team2.setSuffix(ChatColor.YELLOW + user.getKills().toString());
     }
 }

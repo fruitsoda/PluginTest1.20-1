@@ -1,5 +1,6 @@
 package org.fruit.pluginTest1201.controller;
 
+import io.papermc.paper.event.player.ChatEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -47,27 +48,42 @@ public class ScoreBoardEventController implements Listener {
         Objective o = board.registerNewObjective("testBoard", "dummy");
         o.setDisplayName(ChatColor.BOLD + "PLUGIN TEST SERVER");
         o.setDisplaySlot(DisplaySlot.SIDEBAR);
-        Score score = o.getScore(String.format("Players: %d", Bukkit.getOnlinePlayers().size()));
-        score.setScore(3);
+
+
+        Team team1 = board.registerNewTeam("team1");
+        String teamKey1 = ChatColor.RED.toString();
+        team1.addEntry(teamKey1);
+        team1.setPrefix("Players: ");
+        team1.setSuffix(ChatColor.RED + String.format("%d",Bukkit.getOnlinePlayers().size()));
+        o.getScore(teamKey1).setScore(3);
+
         LocalDate now = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         String formatedNow = now.format(formatter);
-        score = o.getScore(formatedNow);
+        Score score = o.getScore(formatedNow);
         score.setScore(4);
         score = o.getScore(user.getDisplayName());
         score.setScore(5);
         score = o.getScore(user.getMoney()+"원");
         score.setScore(2);
-        score = o.getScore("킬 수: " + Long.toString(user.getKills()));
-        score.setScore(1);
+
+        Team team2 = board.registerNewTeam("team2");
+        String teamKey2 = ChatColor.GOLD.toString();
+
+        team2.addEntry(teamKey2);
+        team2.setPrefix("킬 수: ");
+        team2.setSuffix(ChatColor.YELLOW + user.getKills().toString());
+        o.getScore(teamKey2).setScore(1);
+
         player.setScoreboard(board);
     }
 
     public void updateScoreBoard(){
         for(Player online: Bukkit.getOnlinePlayers()){
             Scoreboard board = online.getScoreboard();
-            Objective o = board.getObjective("testBoard");
-            o.getScore(String.format("Players: %d", Bukkit.getOnlinePlayers().size())).resetScore();
+            Team team1 = board.getTeam("team1");
+
+            team1.setSuffix(ChatColor.RED + String.format("%d", Bukkit.getOnlinePlayers().size()));
         }
     }
 }
