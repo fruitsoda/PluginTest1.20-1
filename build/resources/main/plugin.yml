@@ -2,3 +2,7 @@ name: PluginTest1.20.1
 version: '0.0.1'
 main: org.fruit.pluginTest1201.Main
 api-version: '1.20'
+
+commands:
+  giveMoney:
+    description: give money to user
