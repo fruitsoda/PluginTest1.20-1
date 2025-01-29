@@ -1,6 +1,7 @@
 package org.fruit.pluginTest1201.controller;
 
 import org.fruit.pluginTest1201.Main;
+import org.fruit.pluginTest1201.controller.commands.GiveMoneyCmdController;
 import org.fruit.pluginTest1201.service.UserManager;
 
 public class UserManagementController {
@@ -19,6 +20,7 @@ public class UserManagementController {
         this.killCountEventController = new KillCountEventController(this.userManager);
 
         registerEvent();
+        registerCommand();
     }
 
     /*
@@ -31,5 +33,9 @@ public class UserManagementController {
         serverInstance.getServer().getPluginManager().registerEvents(userConnectController, serverInstance);
         serverInstance.getServer().getPluginManager().registerEvents(scoreBoardEventController, serverInstance);
         serverInstance.getServer().getPluginManager().registerEvents(killCountEventController, serverInstance);
+    }
+
+    public void registerCommand(){
+        serverInstance.getServer().getPluginCommand("giveMoney").setExecutor(new GiveMoneyCmdController(userManager));
     }
 }

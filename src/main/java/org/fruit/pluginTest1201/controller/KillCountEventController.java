@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.scoreboard.*;
 import org.fruit.pluginTest1201.Main;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.fruit.pluginTest1201.entity.TeamNames;
 import org.fruit.pluginTest1201.entity.User;
 import org.fruit.pluginTest1201.service.UserManager;
 
@@ -33,7 +34,6 @@ public class KillCountEventController implements Listener {
         try{
             userManager.addKillCounts(player);
             updateScoreBoard(player);
-
         } catch (NullPointerException e) {
             serverInstance.getLogger().info("NULL 값이 들어왔어용");
         }
@@ -44,7 +44,7 @@ public class KillCountEventController implements Listener {
         serverInstance.getLogger().info("updateScoreBoard 함수 실행");
         User user = userManager.getUserData(player);
         Scoreboard scoreboard = player.getScoreboard();
-        Team team2 = scoreboard.getTeam("team2");
-        team2.setSuffix(ChatColor.YELLOW + user.getKills().toString());
+        Team killCount = scoreboard.getTeam(TeamNames.KILL_COUNT.toString());
+        killCount.setSuffix(ChatColor.YELLOW + user.getKills().toString());
     }
 }
